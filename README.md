@@ -26,7 +26,6 @@ Each widget is a **node** in the tree, and widgets can contain other widgets (ch
 The **parent widget** defines the layout and behavior of its **child widgets**.  
 For example, a `Column` (parent) may contain multiple `Text` and `Icon` widgets (children).
 
----
 
 ### List of widgets used in this project and their functions
 
@@ -45,7 +44,6 @@ For example, a `Column` (parent) may contain multiple `Text` and `Icon` widgets 
 | `Material` & `InkWell` | Create clickable material-style buttons with ripple effects. |
 | `SnackBar` | Shows a temporary message at the bottom of the screen. |
 
----
 
 ### What is the function of the `MaterialApp` widget?
 
@@ -57,7 +55,6 @@ It provides key features such as:
 
 It’s usually used as the root because it wraps your app in Material Design behavior.
 
----
 
 ### Difference between `StatelessWidget` and `StatefulWidget`
 
@@ -68,7 +65,6 @@ It’s usually used as the root because it wraps your app in Material Design beh
 
 Use **StatelessWidget** when UI does not change, and **StatefulWidget** when the widget needs to react to user input or data updates.
 
----
 
 ### What is `BuildContext` and why is it important?
 
@@ -80,3 +76,12 @@ It is used to:
 Example:
 ```dart
 ScaffoldMessenger.of(context).showSnackBar(...);
+```
+###  Explain the concept of a “hot reload” in Flutter and how it differs from a “hot restart”.
+
+
+**Hot Reload** allows to quickly update the running app with the latest code changes without restarting it. It preserves the app’s current state (like scroll position or variable values), making it ideal for rapid UI development.
+
+**Hot Restart**, on the other hand, completely restarts the app, rebuilding the widget tree from scratch and resetting the app state.
+
+
