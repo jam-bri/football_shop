@@ -18,7 +18,6 @@ samples, guidance on mobile development, and a full API reference.
 # Football Shop App
 ## A7-07/11/2025
 
-
 ### What is a widget tree and how do parent-child relationships work?
 
 A **widget tree** is the hierarchical structure of all widgets in a Flutter app.  
@@ -84,4 +83,70 @@ ScaffoldMessenger.of(context).showSnackBar(...);
 
 **Hot Restart**, on the other hand, completely restarts the app, rebuilding the widget tree from scratch and resetting the app state.
 
+## A8-12/11/2025
 
+### Explain the difference between Navigator.push() and Navigator.pushReplacement() in Flutter. In what context of your application is each best used?
+
+`Navigator.push()` adds a new page on top of the navigation stack while keeping the previous page underneath. This allows users to go back to the previous screen using the system back button or `Navigator.pop()`.  
+In my application, `Navigator.push()` is best used when navigating to the **Add Product Form**, because users should be able to return to the homepage after completing or canceling the form.
+
+`Navigator.pushReplacement()` removes the current page from the stack and replaces it with a new one, preventing users from going back. This is more suitable for flows like login → homepage, where returning to the login page is unnecessary.  
+If the Football Shop had an authentication screen, `Navigator.pushReplacement()` would be appropriate when the user logs in successfully.
+
+### How do you use hierarchy widget like Scaffold, AppBar, dan Drawer to build a consistent page structure in the your application?
+Flutter’s widget hierarchy helps ensure consistent UI design.  
+`Scaffold` provides the basic layout structure for each page, including areas for the app bar, drawer, and main content.  
+`AppBar` gives every page a consistent header with title and color theme, improving recognizability and branding.  
+`Drawer` offers a global navigation menu that appears identically across all pages, so users can always access the same navigation options.
+
+In Crampons Etoiles application, each page (home, form, product list) uses a `Scaffold` with the same `AppBar` color and the same `LeftDrawer()`, creating a cohesive and predictable interface across the whole app.
+
+
+### In the context of user interface design, what do you think is the advantages of using layout widget like Padding, SingleChildScrollView, and ListView when displaying form elements? Provide usage examples from your application.
+
+
+- **`Padding`** improves readability and visual structure by giving space around form elements.  
+  *Example:*  
+  ```dart
+    Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: TextFormField(
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+        hintText: "Item Price",
+        labelText: "Price",
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+        ),
+        ),
+    ),
+    ),
+
+- **`SingleChildScrollView`** prevents overflow errors and allows the whole form to scroll, especially when the on-screen keyboard is open.
+
+  *Example:*  
+  ```dart
+    child: SingleChildScrollView(
+        child: Column();
+    ),
+
+- **`ListView`** is useful when presenting long, scrollable lists or dynamic form fields. It automatically manages scrolling, making it ideal for product lists or longer forms.
+
+  *Example:*  
+  ```dart
+        ListTile(
+        leading: const Icon(Icons.home_outlined),
+        title: const Text('Home'),
+        // Redirect to MyHomePage
+        onTap: () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MyHomePage(),
+            ));
+        },
+    )
+
+### How do you set the color theme so that your Football Shop have a visual identity that is consistent with the shop brand.
+
+To set the brand identity of Crampons Etoiles, I use Flutter’s ThemeData to define a global color theme in the main.dart file that reflects the shop’s visual style. For example, I use a gold/yellow as the primary color reinforces .
