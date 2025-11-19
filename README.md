@@ -150,3 +150,33 @@ In Crampons Etoiles application, each page (home, form, product list) uses a `Sc
 ### How do you set the color theme so that your Football Shop have a visual identity that is consistent with the shop brand.
 
 To set the brand identity of Crampons Etoiles, I use Flutter’s ThemeData to define a global color theme in the main.dart file that reflects the shop’s visual style. For example, I use a gold/yellow as the primary color reinforces .
+
+## A9-19/11/2025
+
+### 1. Why use a Dart model for JSON?
+We use a Dart model to ensure type safety, enforce null-safety rules, and make the code easier to maintain because all fields, types, and conversions are centralized in one class.  
+Directly using `Map<String, dynamic>` removes all type checks, increases the risk of null errors, and makes the code harder to refactor and easier to break.
+
+### 2. Purpose of `http` and `CookieRequest`
+The `http` package is a general-purpose HTTP client used for simple requests.  
+`CookieRequest` is specialized for Django and automatically manages cookies, sessions, and authentication, making it ideal for login-protected endpoints.
+
+### 3. Why share one `CookieRequest` instance?
+We share a single `CookieRequest` instance so that all screens use the same session cookies and authentication state, ensuring the user stays consistently logged in across the entire app.
+
+### 4. Required connectivity configuration
+`10.0.2.2` must be added to `ALLOWED_HOSTS` because the Android emulator uses it to reach the host machine.  
+CORS and cookie settings must be enabled so the Flutter app is allowed to send requests and receive session cookies from Django.  
+Android needs Internet permission to allow network access.  
+If any of these are missing, requests will fail, cookies won’t work, or Django will reject the connection.
+
+### 5. How data travels from user input to Flutter display
+The user fills a form in Flutter, Flutter sends the data as JSON to Django, Django processes and saves it, returns a JSON response, Flutter converts it into a Dart model, and the UI updates to display it.
+
+### 6. Authentication flow
+For login, Flutter sends the username and password to Django, Django authenticates the user and returns a session cookie, and `CookieRequest` stores it so Flutter can access protected pages.  
+Registration sends new account details to Django, which creates the user and returns a success message.  
+Logout clears the Django session and `CookieRequest` removes the login state in Flutter.
+
+### 7. How I implemented the checklist
+I configured Django to accept requests from Flutter, created the necessary Dart models, set up a shared `CookieRequest` through Provider, built login and input forms, connected them to Django endpoints, and tested the data flow until everything worked correctly.
